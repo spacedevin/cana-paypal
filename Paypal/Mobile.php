@@ -36,4 +36,3 @@ class Caffeine_Paypal_Mobile extends Caffeine_Paypal {
 
 
 }
-

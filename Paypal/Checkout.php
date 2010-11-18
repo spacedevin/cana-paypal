@@ -37,5 +37,14 @@ class Caffeine_Paypal_Checkout extends Caffeine_Paypal {
 
 		return parent::doCheckoutPayment();
 	}
+	
+	
+	public function getDetails($id) {
+		$request['transactionid'] = $id;
+		$request['method'] = 'GetTransactionDetails';
+		$this->setRequest($request);
+
+		return $this->request($this->getRequest());
+	}
 
 }

@@ -11,11 +11,14 @@
  *
  */
 
+error_reporting(E_ALL);
+ini_set('display_errors',1);
+
 require_once 'Curl.php';
 require_once 'Paypal.php';
 require_once 'Paypal/Mobile.php';
 
-
+// use Caffeine_Paypal_Checkout for non mobile.
 $paypal = new Caffeine_Paypal_Mobile;
 
 /**
@@ -75,7 +78,7 @@ if (!isset($_REQUEST['token']) || $_REQUEST['token'] == '') {
 		->setDesc('Test Item')
 		->setReturnurl('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])
 		->setCancelurl('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])
-		->setMobileCheckout($params);
+		->setCheckout($params);
 	
 	
 	if ($paypal->getResponseStatus()) {
@@ -94,13 +97,18 @@ if (!isset($_REQUEST['token']) || $_REQUEST['token'] == '') {
 } else {
 
 	$response = $paypal->setToken($_REQUEST['token'])
-		->doMobileCheckoutPayment();
+		->doCheckoutPayment();
 
 	/**
 	 * success!!
 	 */
 	if ($paypal->getResponseStatus()) {
 		echo 'SUCCESS<br /><pre>'.print_r($response,1);
+
+	/**
+	 * If you are using Caffeine_Paypal_Checkout these params will be DIFFERENT!
+	 * You will need to call $paypal->getDetails() to get all these values
+	 */
 
 	/**
 	 * Returned data
