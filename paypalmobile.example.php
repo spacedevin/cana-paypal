@@ -16,27 +16,27 @@ ini_set('display_errors',1);
 
 require_once 'Curl.php';
 require_once 'Paypal.php';
-require_once 'Paypal/Mobile.php';
+require_once 'Paypal/Checkout.php';
 
-// use Caffeine_Paypal_Checkout for non mobile.
-$paypal = new Caffeine_Paypal_Mobile;
+$paypal = new Caffeine_Paypal_Checkout;
 
 /**
  * configuration for both sandbox and live NVP
  */
-$config['env'] = 'dev';
+$config['env'] = 'live';
+
 if ($config['env'] != 'live') {
-	$config['paypal']['api']['user'] = 'paypalx_api1.arzynik.com';
-	$config['paypal']['api']['pass'] = 'C3Y45D2TPSEGR89P';
-	$config['paypal']['api']['signature'] = 'AQU0e5vuZCvSg-XJploSa.sGUDlpAmwTh8rXHJhJILYDB3wa59d.BUyE';
+	$config['paypal']['api']['user'] = '';
+	$config['paypal']['api']['pass'] = '';
+	$config['paypal']['api']['signature'] = '';
 	$config['paypal']['api']['endpoint'] = 'https://api-3t.sandbox.paypal.com/nvp';
-	$config['paypal']['api']['url'] = 'https://www.sandbox.paypal.com/wc?t=';
+	$config['paypal']['api']['url'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout-mobile&token=';
 } else {
 	$config['paypal']['api']['user'] = '';
 	$config['paypal']['api']['pass'] = '';
 	$config['paypal']['api']['signature'] = '';
 	$config['paypal']['api']['endpoint'] = 'https://api-3t.paypal.com/nvp';
-	$config['paypal']['api']['url'] = 'https://mobile.paypal.com/wc?t=';
+	$config['paypal']['api']['url'] = 'https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout-mobile&token=';
 }
 $config['paypal']['api']['version'] = '3.0';
 
@@ -44,7 +44,8 @@ $config['paypal']['api']['version'] = '3.0';
 /**
  * give our library our config
  */
-$paypal->setApiVersion($config['paypal']['api']['version'])
+$paypal
+	->setApiVersion($config['paypal']['api']['version'])
 	->setApiUrl($config['paypal']['api']['endpoint'])
 	->setApiUser($config['paypal']['api']['user'])
 	->setApiPass($config['paypal']['api']['pass'])
@@ -53,8 +54,7 @@ $paypal->setApiVersion($config['paypal']['api']['version'])
 
 // SetMobileChechout
 if (!isset($_REQUEST['token']) || $_REQUEST['token'] == '') {
-
-
+	$params = array();
 	/**
 	 * Optional params
 	 * 
@@ -71,9 +71,10 @@ if (!isset($_REQUEST['token']) || $_REQUEST['token'] == '') {
 	 * $params['shiptostate'] 		= '';	// state to propogate the address form with
 	 * $params['shiptocountry'] 	= '';	// country to propogate the address form with
 	 * $params['shiptozip'] 		= '';	// zip to propogate the address form with
+	 * $params['solutiontype']		= 'sole' // allows entry of credit card data
 	 */
-
-	$response = $paypal->setAmt('5.00')
+	$response = $paypal
+		->setAmt('5.00')
 		->setCurrencycode('USD')
 		->setDesc('Test Item')
 		->setReturnurl('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])

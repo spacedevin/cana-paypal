@@ -14,7 +14,8 @@
 
 class Caffeine_Paypal_Checkout extends Caffeine_Paypal {
 
-	public function setCheckout() {
+	public function setCheckout($params = array()) {
+		$request = $params;
 		$request['amt'] = $this->getAmt();
 		$request['currencycode'] = $this->getCurrencycode();
 		$request['desc'] = $this->getDesc();

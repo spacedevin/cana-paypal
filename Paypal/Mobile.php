@@ -7,6 +7,8 @@
  * This library is compatable with Caffeine Engine, Zend Framework, as
  * well as being used stand alone.
  *
+ * Please note that the setMobileCheckout is only for non touch devices.
+ *
  * Devin Smith           2009.06.16            www.devin-smith.com
  *
  */
