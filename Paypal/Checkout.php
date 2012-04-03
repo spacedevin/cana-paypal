@@ -1,18 +1,17 @@
 <?php
+
 /**
- *
  * Paypal Checkout Library
  *
  * This is a basic library for the paypal mobile checkout NVP interface.
- * This library is compatable with Caffeine Engine, Zend Framework, as
- * well as being used stand alone.
  *
- * Devin Smith           2009.06.16            www.devin-smith.com
+ * @author		Devin Smith <devin@cana.la>
+ * @date		2009.06.16
  *
  */
 
 
-class Caffeine_Paypal_Checkout extends Caffeine_Paypal {
+class Cana_Paypal_Checkout extends Cana_Paypal {
 
 	public function setCheckout($params = array()) {
 		$request = $params;

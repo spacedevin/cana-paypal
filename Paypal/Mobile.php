@@ -1,20 +1,17 @@
 <?php
+
 /**
- *
- * Paypal Mobile Checkout Library
+ * Paypal Checkout Library
  *
  * This is a basic library for the paypal mobile checkout NVP interface.
- * This library is compatable with Caffeine Engine, Zend Framework, as
- * well as being used stand alone.
  *
- * Please note that the setMobileCheckout is only for non touch devices.
- *
- * Devin Smith           2009.06.16            www.devin-smith.com
+ * @author		Devin Smith <devin@cana.la>
+ * @date		2009.06.16
  *
  */
 
 
-class Caffeine_Paypal_Mobile extends Caffeine_Paypal {
+class Cana_Paypal_Mobile extends Cana_Paypal {
 	
 	public function setCheckout() {
 		$request['amt'] = $this->getAmt();

@@ -1,24 +1,19 @@
 <?php
+
 /**
- *
- * Paypal Mobile Checkout Library - sample implimentation
+ * Paypal Checkout Library
  *
  * This is a basic library for the paypal mobile checkout NVP interface.
- * This library is compatable with Caffeine Engine, Zend Framework, as
- * well as being used stand alone.
  *
- * Devin Smith            www.devin-smith.com            2009.06.16
+ * @author		Devin Smith <devin@cana.la>
+ * @date		2009.06.16
  *
  */
 
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 
-require_once 'Curl.php';
-require_once 'Paypal.php';
-require_once 'Paypal/Checkout.php';
-
-$paypal = new Caffeine_Paypal_Checkout;
+$paypal = new Cana_Paypal_Checkout;
 
 /**
  * configuration for both sandbox and live NVP
@@ -107,7 +102,7 @@ if (!isset($_REQUEST['token']) || $_REQUEST['token'] == '') {
 		echo 'SUCCESS<br /><pre>'.print_r($response,1);
 
 	/**
-	 * If you are using Caffeine_Paypal_Checkout these params will be DIFFERENT!
+	 * If you are using Cana_Paypal_Checkout these params will be DIFFERENT!
 	 * You will need to call $paypal->getDetails() to get all these values
 	 */
 
