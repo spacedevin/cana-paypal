@@ -30,6 +30,7 @@ class Cana_Paypal {
 	const RESPONSE_SUCCESS = 'SUCCESS';
 
 	public function setCheckout() {
+
 		$response = $this->request($this->getRequest());
 		$this->setToken(isset($response['TOKEN']) ? $response['TOKEN'] : '');
 		return $response;
@@ -42,15 +43,14 @@ class Cana_Paypal {
 
 	public function request($request) {
 
-		$curl = new Cana_Curl;
+
 		$request['version'] = $this->getApiVersion();
 		$request['pwd'] = $this->getApiPass();
 		$request['user'] = $this->getApiUser();
 		$request['signature'] = $this->getApiSignature();
 
-		$res = $curl->request($this->getApiUrl(),$request);
-		$res = $this->parseResponseArgs($res);
-
+		$curl = new Cana_Curl($this->getApiUrl(),$request);
+		$res = $this->parseResponseArgs($curl->output);
 
 		if (strtoupper($res['ACK']) == self::RESPONSE_SUCCESS) {
 			$this->setResponseStatus(true);
